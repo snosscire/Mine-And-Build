@@ -29,7 +29,7 @@ void MineGame_Run()
 	Uint32 last_time = 0;
 	Uint32 delta_time = 0;
 	
-	MineEngine_Startup(1024, 608, FALSE);
+	MineEngine_Startup(1280, 720, FALSE);
 	
 	MineEvent_RegisterCallback(SDL_QUIT, _MineGame_OnQuit, NULL);
 	
@@ -69,14 +69,14 @@ void MineGame_Run()
 			
 			if( current_time > next_fps_print )
 			{
-				printf("---------------------------\n");
+				//printf("---------------------------\n");
 			}
 			
 			for( i = 0; i < frame_temp_count; i++ )
 			{
 				if( current_time > next_fps_print )
 				{
-					printf("Frame time: %d\n", frame_times[i]);
+					//printf("Frame time: %d\n", frame_times[i]);
 				}
 				frames_per_second += frame_times[i];
 			}
@@ -84,7 +84,7 @@ void MineGame_Run()
 			frames_per_second /= frame_temp_count;
 			if( current_time > next_fps_print )
 			{
-				printf("Avarage frame time: %f\n", frames_per_second);
+				//printf("Avarage frame time: %f\n", frames_per_second);
 			}
 			if( frames_per_second > 0 )
 			{

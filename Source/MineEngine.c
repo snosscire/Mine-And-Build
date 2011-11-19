@@ -60,6 +60,17 @@ void MineEngine_UpdateScreen()
 	SDL_Flip(MineEngine_VideoSurface);
 }
 
+int MineEngine_ScreenWidth()
+{
+	return MineEngine_VideoSurface->w;
+}
+
+int MineEngine_ScreenHeight()
+{
+	return MineEngine_VideoSurface->h;
+}
+
+
 int MineEngine_RandomNumber( int min, int max )
 {
 	return (rand() % (max - min + 1) + min);

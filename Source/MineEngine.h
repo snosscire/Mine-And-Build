@@ -9,6 +9,8 @@ char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 void MineEngine_Shutdown();
 void MineEngine_ClearScreen();
 void MineEngine_UpdateScreen();
+int MineEngine_ScreenWidth();
+int MineEngine_ScreenHeight();
 int MineEngine_RandomNumber( int min, int max );
 #endif /* MINE_ENGINE_H */
 

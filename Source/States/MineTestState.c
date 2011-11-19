@@ -3,6 +3,7 @@
 #include "../MineEngine.h"
 #include "../MineEvent.h"
 #include "../MineGame.h"
+#include "../MineScrollCamera.h"
 
 #include <stdlib.h>
 #include <SDL/SDL_image.h>
@@ -10,14 +11,15 @@
 #define BLOCK_WIDTH 16
 #define BLOCK_HEIGHT 16
 
-typedef struct __mine_test_state_data TestStateData;
-typedef struct __mine_block           Block;
+typedef struct __mine_test_state TestState;
+typedef struct __mine_block      Block;
 
-struct __mine_test_state_data
+struct __mine_test_state
 {
-	Block ***blocks;
 	unsigned int world_width;
 	unsigned int world_height;
+	Block ***blocks;
+	Camera *camera;
 };
 
 struct __mine_block
@@ -45,13 +47,13 @@ void _MineTestState_OnKeyUp( SDL_Event *event, void *data )
 
 void _MineTestState_Start( void *data )
 {
-	TestStateData *self = (TestStateData *)data;
+	TestState *self = (TestState *)data;
 	
 	int x = 0;
 	int y = 0;
 	
-	int world_width = 1024 / BLOCK_WIDTH;
-	int world_height = 608 / BLOCK_HEIGHT;
+	int world_width = 4096 / BLOCK_WIDTH;
+	int world_height = 2048 / BLOCK_HEIGHT;
 	int limit_up = world_height * 0.75;
 	int limit_down = world_height * 0.25;
 	int start_y = MineEngine_RandomNumber(limit_down, limit_up);
@@ -72,6 +74,7 @@ void _MineTestState_Start( void *data )
 	self->world_width = world_width;
 	self->world_height = world_height;
 	self->blocks = malloc(sizeof(Block *) * world_width);
+	self->camera = MineScrollCamera_Create(world_width * 16, world_height * 16);
 	
 	for( x = 0; x < world_width; x++ )
 	{
@@ -140,7 +143,7 @@ void _MineTestState_Stop( void *data )
 	int x;
 	int y;
 	printf("Stop\n");
-	TestStateData *self = (TestStateData *)data;
+	TestState *self = (TestState *)data;
 	for( x = 0; x < self->world_width; x++ )
 	{
 		for( y = 0; y < self->world_height; y++ )
@@ -150,6 +153,7 @@ void _MineTestState_Stop( void *data )
 		free(self->blocks[x]);
 	}
 	free(self->blocks);
+	MineCamera_Destroy(self->camera);
 	free(self);
 	SDL_FreeSurface(block_surface);
 	MineEvent_UnregisterCallback(_MineTestState_OnKeyUp);	
@@ -161,19 +165,28 @@ void _MineTestState_Update( void *data )
 
 void _MineTestState_Draw( void *data )
 {
-	TestStateData *self = (TestStateData *)data;
+	TestState *self = (TestState *)data;
 	SDL_Rect rect;
 	Uint32 red;
 	Uint32 green;
 	Uint32 blue;
 	int x;
 	int y;
-	for( x = 0; x < self->world_width; x++ )
+	//for( x = 0; x < self->world_width; x++ )
+	for( x = (MineCamera_Left(self->camera) / BLOCK_WIDTH); x < (MineCamera_Right(self->camera) / BLOCK_WIDTH) + 1; x++ )
 	{
-		for( y = 0; y < self->world_height; y++ )
+		//for( y = 0; y < self->world_height; y++ )
+		for( y = (MineCamera_Top(self->camera) / BLOCK_HEIGHT); y < (MineCamera_Bottom(self->camera) / BLOCK_HEIGHT) + 1; y++ )
 		{
-			rect.x = x * BLOCK_WIDTH;
-			rect.y = y * BLOCK_HEIGHT;
+			if( x >= self->world_width OR y >= self->world_height )
+			{
+				continue;
+			}
+			
+			//rect.x = x * BLOCK_WIDTH;
+			//rect.y = y * BLOCK_HEIGHT;
+			rect.x = (x * BLOCK_WIDTH) - MineCamera_Left(self->camera);
+			rect.y = (y * BLOCK_HEIGHT) - MineCamera_Top(self->camera);
 			//rect.x = self->blocks[x][y]->x;
 			//rect.y = self->blocks[x][y]->y;
 			rect.w = BLOCK_WIDTH;
@@ -199,7 +212,7 @@ State * MineTestState_Create()
 	State *state = MineState_Create();
 	if( state )
 	{
-		TestStateData *data = malloc(sizeof(TestStateData));
+		TestState *data = malloc(sizeof(TestState));
 		data->blocks = NULL;
 		state->data = data;
 		state->start = _MineTestState_Start;

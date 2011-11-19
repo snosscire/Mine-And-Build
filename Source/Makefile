@@ -7,6 +7,8 @@ all:
 		MineEvent.c \
 		MineFont.c \
 		MineGame.c \
+		MineCamera.c \
+		MineScrollCamera.c \
 		MineState.c \
 		States/MineTestState.c
 
