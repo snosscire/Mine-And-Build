@@ -1,9 +1,40 @@
 #include "MineInclude.h"
 #include "MineEngine.h"
 #include "MineEvent.h"
+#include "MineList.h"
 
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+#include <SDL/SDL_image.h>
+
+typedef struct __mine_engine_loaded_image LoadedImage;
+
+struct __mine_engine_loaded_image
+{
+	const char *filename;
+	SDL_Surface *surface;
+};
+
+List *MineEngine_LoadedImages = NULL;
+
+void _MineEngine_DestroyLoadedImage( void *data )
+{
+	LoadedImage *image = data;
+	SDL_FreeSurface(image->surface);
+	free(image);
+}
+
+LoadedImage * _MineEngine_FindLoadedImageByFilename( const char *filename )
+{
+	FOREACH(MineEngine_LoadedImages, LoadedImage, image)
+		if( strcmp(image->filename, filename) == 0 ) {
+			return image;
+		}
+	ENDFOREACH
+	return NULL;
+}
 
 char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 {
@@ -31,6 +62,13 @@ char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 		return FALSE;
 	}
 	
+	MineEngine_LoadedImages = MineList_Create( _MineEngine_DestroyLoadedImage);
+	if( NOT MineEngine_LoadedImages )
+	{
+		SDL_Quit();
+		return FALSE;
+	}
+	
 	MineEvent_Startup();
 	
 	srand(time(NULL));
@@ -40,6 +78,7 @@ char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 
 void MineEngine_Shutdown()
 {
+	MineList_Destroy(MineEngine_LoadedImages);
 	MineEvent_Shutdown();
 	
 	SDL_Quit();
@@ -74,5 +113,30 @@ int MineEngine_ScreenHeight()
 int MineEngine_RandomNumber( int min, int max )
 {
 	return (rand() % (max - min + 1) + min);
+}
+
+SDL_Surface * MineEngine_LoadImage( const char *filename )
+{
+	LoadedImage *image = _MineEngine_FindLoadedImageByFilename(filename);
+	if( NOT image )
+	{
+		SDL_Surface *surface = IMG_Load(filename);
+		printf("Loading: %s\n", filename);
+		if( NOT surface )
+		{
+			printf("Not Found!\n");
+			return NULL;
+		}
+		image = malloc(sizeof(LoadedImage));
+		if( NOT image )
+		{
+			SDL_FreeSurface(surface);
+			return NULL;
+		}
+		image->filename = filename;
+		image->surface = surface;
+		MineList_Append(MineEngine_LoadedImages, image);
+	}
+	return image->surface;
 }
 

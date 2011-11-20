@@ -9,6 +9,8 @@ all:
 		MineGame.c \
 		MineCamera.c \
 		MineScrollCamera.c \
+		MineBlock.c \
+		Blocks/MineDirtBlock.c \
 		MineState.c \
 		States/MineTestState.c
 

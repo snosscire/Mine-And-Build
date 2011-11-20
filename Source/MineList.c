@@ -17,7 +17,7 @@ List * MineList_Create( void (*destroy)(void*) ) {
 	return NULL;
 }
 
-void MineList_Delete( List *list ) {
+void MineList_Destroy( List *list ) {
 	if( list ) {
 		ListNode *next_node = list->first;
 		ListNode *current_node = NULL;

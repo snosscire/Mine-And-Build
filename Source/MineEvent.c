@@ -17,7 +17,7 @@ EventCallback * MineEventCallback_Create()
 	return NULL;
 }
 
-void MineEventCallback_Delete( EventCallback *callback )
+void MineEventCallback_Destroy( EventCallback *callback )
 {
 	if( callback )
 	{
@@ -33,20 +33,20 @@ void MineEventCallback_Invoke( EventCallback *callback, SDL_Event *event )
 	}
 }
 
-void _MineEvent_DeleteRegisteredCallbacksItem( void *data )
+void _MineEvent_DestroyRegisteredCallbacksItem( void *data )
 {
 	EventCallback *callback = (EventCallback *)data;
-	MineEventCallback_Delete(callback);
+	MineEventCallback_Destroy(callback);
 }
 
 void MineEvent_Startup()
 {
-	MineEvent_RegisteredCallbacks = MineList_Create(_MineEvent_DeleteRegisteredCallbacksItem);
+	MineEvent_RegisteredCallbacks = MineList_Create(_MineEvent_DestroyRegisteredCallbacksItem);
 }
 
 void MineEvent_Shutdown()
 {
-	MineList_Delete(MineEvent_RegisteredCallbacks);
+	MineList_Destroy(MineEvent_RegisteredCallbacks);
 }
 
 void MineEvent_RegisterCallback( Uint8 type, void (*function)(SDL_Event*,void*), void *data )
