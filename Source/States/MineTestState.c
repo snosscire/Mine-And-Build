@@ -5,6 +5,7 @@
 #include "../MineGame.h"
 #include "../MineScrollCamera.h"
 #include "../MineBlock.h"
+#include "../Blocks/MineBlockType.h"
 #include "../Blocks/MineDirtBlock.h"
 
 #include <stdlib.h>
@@ -128,7 +129,7 @@ void _MineTestState_Start( void *data )
 		}
 		
 		MineBlock_Destroy(self->blocks[x][y]);
-		self->blocks[x][y] = MineDirtBlock_Create();
+		self->blocks[x][y] = MineBlock_Dirt_Create();
 		MineBlock_SetX(self->blocks[x][y], x);
 		MineBlock_SetY(self->blocks[x][y], y);
 		
@@ -152,7 +153,7 @@ void _MineTestState_Start( void *data )
 				self->blocks[x][_y]->b = MineEngine_RandomNumber(0, 255);
 				*/
 				MineBlock_Destroy(self->blocks[x][_y]);
-				self->blocks[x][_y] = MineDirtBlock_Create();
+				self->blocks[x][_y] = MineBlock_Dirt_Create();
 				MineBlock_SetX(self->blocks[x][_y], x);
 				MineBlock_SetY(self->blocks[x][_y], _y);
 			}

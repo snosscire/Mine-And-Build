@@ -10,7 +10,11 @@ all:
 		MineCamera.c \
 		MineScrollCamera.c \
 		MineBlock.c \
+		Blocks/MineNoneBlock.c \
 		Blocks/MineDirtBlock.c \
+		Blocks/MineStoneBlock.c \
+		MineWorld.c \
+		MineWorldGenerator.c \
 		MineState.c \
 		States/MineTestState.c
 

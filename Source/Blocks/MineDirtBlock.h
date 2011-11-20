@@ -3,6 +3,7 @@
 
 #include "../MineBlock.h"
 
-Block * MineDirtBlock_Create();
+Block * MineBlock_Dirt_Create();
+int MineBlock_Dirt_SpawnProbability( Block **neighbor_blocks );
 
 #endif /* MINE_DIRT_BLOCK_H */
