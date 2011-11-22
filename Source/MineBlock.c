@@ -2,13 +2,13 @@
 #include "MineBlock.h"
 #include "MineEngine.h"
 
-Block * MineBlock_Create()
+Block * MineBlock_Create( unsigned int x, unsigned int y )
 {
 	Block *self = malloc(sizeof(Block));
 	if( self )
 	{
-		self->x = 0;
-		self->y = 0;
+		self->x = x;
+		self->y = y;
 		self->destroy = NULL;
 		self->update = NULL;
 		self->draw = NULL;

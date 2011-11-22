@@ -29,7 +29,7 @@ void MineGame_Run()
 	Uint32 last_time = 0;
 	Uint32 delta_time = 0;
 	
-	MineEngine_Startup(1280, 720, FALSE);
+	MineEngine_Startup(640, 480, FALSE);
 	
 	MineEvent_RegisterCallback(SDL_QUIT, _MineGame_OnQuit, NULL);
 	

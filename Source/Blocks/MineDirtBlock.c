@@ -13,9 +13,9 @@ struct __mine_block_dirt
 };
 */
 
-Block * MineBlock_Dirt_Create()
+Block * MineBlock_Dirt_Create( unsigned int x, unsigned int y )
 {
-	Block *super = MineBlock_Create();
+	Block *super = MineBlock_Create(x, y);
 	if( super )
 	{
 		super->image = MineEngine_LoadImage("dirt.png");
@@ -25,7 +25,7 @@ Block * MineBlock_Dirt_Create()
 	return NULL;
 }
 
-int MineBlock_Dirt_SpawnProbability( Block **neighbor_blocks )
+int MineBlock_Dirt_SpawnProbability( List *neighbor_blocks )
 {
 	return 33;
 }

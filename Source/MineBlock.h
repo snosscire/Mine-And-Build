@@ -20,7 +20,7 @@ struct __mine_block
 	void *data;
 };
 
-Block * MineBlock_Create();
+Block * MineBlock_Create( unsigned int x, unsigned int y );
 void MineBlock_Destroy( Block *self );
 void MineBlock_Update( Block *self );
 void MineBlock_Draw( Block *self, Camera *camera );

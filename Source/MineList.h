@@ -20,7 +20,7 @@ struct __mine_list_node
 };
 
 List * MineList_Create( void (*destroy)(void*) );
-void MineList_Destroy( List *list);
+void MineList_Destroy( List *list );
 
 void MineList_Append( List *list, void *data );
 void MineList_AddAtStart( List *list, void *data );
