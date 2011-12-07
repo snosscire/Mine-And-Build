@@ -20,8 +20,9 @@ World * MineWorld_Create( unsigned int width, unsigned int height )
 			world->blocks[x] = malloc(sizeof(Block *) * height);
 			for( y = 0; y < height; y++ )
 			{
-				Block *block = MineBlock_None_Create(x, y);
-				world->blocks[x][y] = block;
+				//Block *block = MineBlock_None_Create(x, y);
+				//world->blocks[x][y] = block;
+				world->blocks[x][y] = NULL;
 			}
 		}
 	}
@@ -56,15 +57,15 @@ unsigned int MineWorld_GetHeight( World *world )
 
 void MineWorld_SetBlock( World *world, unsigned int x, unsigned int y, Block *new_block )
 {
-	//if( x >= 0 AND x < world->width AND y >= 0 AND y < world->height )
-	//{
+	if( x >= 0 AND x < world->width AND y >= 0 AND y < world->height )
+	{
 		Block *old_block = MineWorld_GetBlock(world, x, y);
 		if( old_block )
 		{
 			MineBlock_Destroy(old_block);
-			world->blocks[x][y] = new_block;
 		}
-	//}
+		world->blocks[x][y] = new_block;
+	}
 }
 
 Block * MineWorld_GetBlock( World *world, unsigned int x, unsigned int y )

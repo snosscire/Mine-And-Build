@@ -36,19 +36,15 @@ LoadedImage * _MineEngine_FindLoadedImageByFilename( const char *filename )
 	return NULL;
 }
 
-char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
+void _MineEngine_SetScreen( int screen_width, int screen_height, char full_screen )
 {
 	Uint32 flags = 0;
-	
-	if( SDL_Init(SDL_INIT_VIDEO) == -1 )
-	{
-		return FALSE;
-	}
 	
 	flags |= SDL_HWPALETTE;
 	flags |= SDL_HWSURFACE;
 	flags |= SDL_HWACCEL;
 	flags |= SDL_DOUBLEBUF;
+	flags |= SDL_RESIZABLE;
 	
 	if( full_screen )
 	{
@@ -56,12 +52,28 @@ char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 	}
 	
 	MineEngine_VideoSurface = SDL_SetVideoMode(screen_width, screen_height, 0, flags);
+}
+
+void _MineEngine_OnVideoResize( SDL_Event *event, void *data )
+{
+	_MineEngine_SetScreen(event->resize.w, event->resize.h, FALSE);
+}
+
+char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
+{
+	
+	if( SDL_Init(SDL_INIT_VIDEO) == -1 )
+	{
+		return FALSE;
+	}
+	
+	_MineEngine_SetScreen(screen_width, screen_height, full_screen);
 	if( NOT MineEngine_VideoSurface )
 	{
 		SDL_Quit();
 		return FALSE;
 	}
-	
+
 	MineEngine_LoadedImages = MineList_Create( _MineEngine_DestroyLoadedImage);
 	if( NOT MineEngine_LoadedImages )
 	{
@@ -72,6 +84,8 @@ char MineEngine_Startup( int screen_width, int screen_height, char full_screen )
 	MineEvent_Startup();
 	
 	srand(time(NULL));
+	
+	MineEvent_RegisterCallback(SDL_VIDEORESIZE, _MineEngine_OnVideoResize, NULL);
 	
 	return TRUE;
 }

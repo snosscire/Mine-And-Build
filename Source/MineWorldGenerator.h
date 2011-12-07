@@ -9,7 +9,7 @@
 void MineWorldGenerator_Startup();
 void MineWorldGenerator_Shutdown();
 void MineWorldGenerator_RegisterBlocks();
-void MineWorldGenerator_RegisterBlock( BlockType type, Block * (*create)(), int (*spawn_probability)(List *) );
+void MineWorldGenerator_RegisterBlock( BlockType type, Block * (*create)(World*,unsigned int,unsigned int), int (*spawn_probability)(Block*,Block*,Block*,Block*) );
 World * MineWorldGenerator_CreateWorld( unsigned int width, unsigned int height );
 
 #endif /* MINE_WORLD_GENERATOR */

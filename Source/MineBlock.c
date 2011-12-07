@@ -1,12 +1,14 @@
 #include "MineInclude.h"
 #include "MineBlock.h"
+#include "MineWorld.h"
 #include "MineEngine.h"
 
-Block * MineBlock_Create( unsigned int x, unsigned int y )
+Block * MineBlock_Create( World *world, unsigned int x, unsigned int y )
 {
 	Block *self = malloc(sizeof(Block));
 	if( self )
 	{
+		self->world = world;
 		self->x = x;
 		self->y = y;
 		self->destroy = NULL;
@@ -63,3 +65,9 @@ void MineBlock_SetY( Block *self, unsigned int y )
 {
 	self->y = y;
 }
+
+BlockType MineBlock_GetType( Block *self )
+{
+	return self->type;
+}
+
