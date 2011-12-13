@@ -49,13 +49,13 @@ void MineState_Stop( State *state )
 	}
 }
 
-void MineState_Update( State *state )
+void MineState_Update( State *state, unsigned int delta_time )
 {
 	if( state->running )
 	{
 		if( state->update )
 		{
-			state->update(state->data);
+			state->update(state->data, delta_time);
 		}
 	}
 }

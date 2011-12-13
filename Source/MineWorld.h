@@ -20,5 +20,6 @@ unsigned int MineWorld_GetHeight( World *world );
 void MineWorld_SetBlock( World *world, unsigned int x, unsigned int y, Block *block );
 Block * MineWorld_GetBlock( World *world, unsigned int x, unsigned int y );
 void MineWorld_Draw( World *world, Camera *camera );
+char MineWorld_HaveCollision( World *world, unsigned int x, unsigned int y, unsigned int width, unsigned int height );
 
 #endif /* MINE_WORLD_H */

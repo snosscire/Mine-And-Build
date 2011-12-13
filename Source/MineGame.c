@@ -105,7 +105,7 @@ void MineGame_Run()
 		MineEvent_InvokeCallbacks();
 		if( MineGame_CurrentState )
 		{
-			MineState_Update(MineGame_CurrentState);
+			MineState_Update(MineGame_CurrentState, delta_time);
 		}
 		MineEngine_ClearScreen();
 		if( MineGame_CurrentState )

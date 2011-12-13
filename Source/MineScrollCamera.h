@@ -3,6 +3,6 @@
 
 #include "MineCamera.h"
 
-Camera * MineScrollCamera_Create();
+Camera * MineScrollCamera_Create( unsigned int world_width, unsigned int world_height );
 
 #endif /* MINE_SCROLL_CAMERA_H */

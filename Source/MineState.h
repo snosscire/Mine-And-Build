@@ -9,7 +9,7 @@ struct __mine_state
 	void *data;
 	void (*start)(void*);
 	void (*stop)(void*);
-	void (*update)(void*);
+	void (*update)(void*,unsigned int);
 	void (*draw)(void*);
 };
 
@@ -17,7 +17,7 @@ State * MineState_Create();
 void MineState_Delete( State *state );
 void MineState_Start( State *state );
 void MineState_Stop( State *state );
-void MineState_Update( State *state );
+void MineState_Update( State *state, unsigned int delta_time );
 void MineState_Draw( State *state );
 
 #endif /* MINE_STATE_H */

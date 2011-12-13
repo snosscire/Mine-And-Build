@@ -9,6 +9,7 @@ all:
 		MineGame.c \
 		MineCamera.c \
 		MineScrollCamera.c \
+		MinePlayerCamera.c \
 		MineBlock.c \
 		Blocks/MineNoneBlock.c \
 		Blocks/MineDirtBlock.c \
@@ -16,5 +17,8 @@ all:
 		MineWorld.c \
 		MineWorldGenerator.c \
 		MineState.c \
-		States/MineTestState.c
+		States/MineTestState.c \
+		MineObject.c \
+		MineController.c \
+		MinePlayerController.c
 

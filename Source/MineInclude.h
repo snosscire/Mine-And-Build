@@ -14,4 +14,6 @@
 	#define TRUE  !FALSE
 #endif
 
+#define PI 3.14159265
+
 #endif /* MINE_INCLUDE_H */
