@@ -9,6 +9,7 @@
 #include "../MinePlayerCamera.h"
 #include "../MineObject.h"
 #include "../MinePlayerController.h"
+#include "../Objects/MinePlayer.h"
 
 #include <stdlib.h>
 
@@ -46,7 +47,7 @@ void _MineTestState_Start( void *data )
 	MineWorldGenerator_Startup();
 	
 	self->world = MineWorldGenerator_CreateWorld(world_width, world_height);
-	self->player = MineObject_Create(self->world, 100, 100);
+	self->player = MinePlayer_Create(self->world, 100, 100);
 	self->camera = MinePlayerCamera_Create(world_width * BLOCK_WIDTH, world_height * BLOCK_HEIGHT, self->player);
 	self->controller = MinePlayerController_Create(self->player);
 	

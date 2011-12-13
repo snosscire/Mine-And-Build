@@ -20,5 +20,11 @@ all:
 		States/MineTestState.c \
 		MineObject.c \
 		MineController.c \
-		MinePlayerController.c
+		MinePlayerController.c \
+		MineBehavior.c \
+		Objects/MinePlayer.c \
+		Objects/Behaviors/MineDefaultMoving.c \
+		Objects/Behaviors/MineDefaultJumping.c \
+		Objects/Behaviors/MineDefaultFalling.c \
+		Objects/Behaviors/MineDefaultColliding.c
 
