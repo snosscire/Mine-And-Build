@@ -19,7 +19,7 @@ void _MinePlayerController_OnKeyDown( SDL_Event *event, void *data )
 	}
 	else if( event->key.keysym.sym == SDLK_SPACE )
 	{
-		controller->object->jump = TRUE;
+		MineObject_SetJump(controller->object, TRUE);
 	}
 }
 
