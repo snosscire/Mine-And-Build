@@ -49,7 +49,7 @@ void _MineTestState_Start( void *data )
 	self->world = MineWorldGenerator_CreateWorld(world_width, world_height);
 	self->player = MinePlayer_Create(self->world, 100, 100);
 	self->camera = MinePlayerCamera_Create(world_width * BLOCK_WIDTH, world_height * BLOCK_HEIGHT, self->player);
-	self->controller = MinePlayerController_Create(self->player);
+	self->controller = MinePlayerController_Create(self->player, self->camera);
 	
 	MineWorldGenerator_Shutdown();
 	

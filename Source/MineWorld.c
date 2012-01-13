@@ -189,4 +189,22 @@ char MineWorld_HaveCollision( World *world, unsigned int x, unsigned int y, unsi
 	return collision;
 }
 
+void MineWorld_GetWorldPositionFromScreenPosition( World *world, Camera *camera, unsigned int screen_x, unsigned int screen_y, unsigned int *world_x, unsigned int *world_y )
+{
+	*world_x = (screen_x + MineCamera_Left(camera)) / BLOCK_WIDTH;
+	*world_y = (screen_y + MineCamera_Top(camera)) / BLOCK_HEIGHT;
+}
+
+Block * MineWorld_TakeBlock( World *world, unsigned int x, unsigned int y )
+{
+	Block *block = MineWorld_GetBlock(world, x, y);
+	printf("World width: %d\n", world->width);
+	printf("World height: %d\n", world->height);
+	if( block )
+	{
+		world->blocks[x][y] = NULL;
+	}
+	return block;
+}
+
 

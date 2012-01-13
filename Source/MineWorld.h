@@ -21,5 +21,7 @@ void MineWorld_SetBlock( World *world, unsigned int x, unsigned int y, Block *bl
 Block * MineWorld_GetBlock( World *world, unsigned int x, unsigned int y );
 void MineWorld_Draw( World *world, Camera *camera );
 char MineWorld_HaveCollision( World *world, unsigned int x, unsigned int y, unsigned int width, unsigned int height );
+void MineWorld_GetWorldPositionFromScreenPosition( World *world, Camera *camera, unsigned int screen_x, unsigned int screen_y, unsigned int *world_x, unsigned int *world_y );
+Block * MineWorld_TakeBlock( World *world, unsigned int x, unsigned int y );
 
 #endif /* MINE_WORLD_H */

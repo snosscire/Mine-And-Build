@@ -5,11 +5,11 @@
 
 typedef struct __mine_controller Controller;
 
-struct __mine_object;
 struct __mine_controller
 {
-	struct __mine_object *object;
+	Object *object;
 	void (*destroy)(Controller*);
+	void *data;
 };
 
 Controller * MineController_Create( Object *object );

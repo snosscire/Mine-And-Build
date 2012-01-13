@@ -9,6 +9,7 @@ Controller * MineController_Create( Object *object )
 	{
 		controller->object = object;
 		controller->destroy = NULL;
+		controller->data = NULL;
 		return controller;
 	}
 	return NULL;

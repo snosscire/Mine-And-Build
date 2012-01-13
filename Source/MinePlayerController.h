@@ -2,7 +2,8 @@
 #define MINE_PLAYER_CONTROLLER_H
 
 #include "MineController.h"
+#include "MineCamera.h"
 
-Controller * MinePlayerController_Create( struct __mine_object *object );
+Controller * MinePlayerController_Create( Object *object, Camera *camera );
 
 #endif /* MINE_PLAYER_CONTROLLER_H */
